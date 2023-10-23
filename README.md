@@ -1,4 +1,4 @@
-# CMenu
+# C-Menu
 A recursive, sleek, and minimalist menu for RedM.
 
 You can find all documentation here:
