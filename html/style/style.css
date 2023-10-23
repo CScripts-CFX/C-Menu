@@ -1,0 +1,692 @@
+@font-face {
+  font-family: Crock;
+  src: url(../assets/fonts/crock.ttf) format("truetype");
+}
+
+@font-face {
+  font-family: HapnaSlabSerif;
+  src: url(../assets/fonts/HapnaSlabSerif.ttf) format("truetype");
+}
+
+body {
+  padding: 0;
+  margin: 0;
+  bottom: 0;
+  top: 0;
+  width: auto;
+  height: auto;
+  overflow: hidden;
+}
+
+#menucontainer {
+  position: absolute;
+  top: 0;
+  right: 0;
+  padding: 30px;
+  margin: 30px;
+  width: 25%;
+  height: 90%;
+
+  visibility: hidden;
+
+  /* Background */
+  background-image: url(../assets/images/background.png);
+  background-repeat: no-repeat;
+  background-size: contain;
+  background-position: center;
+
+  box-sizing: border-box;
+}
+
+#contentcontainer {
+  padding: 20px;
+  width: 100%; /* takes full width of its parent */
+  height: 100%; /* takes full height of its parent */
+  box-sizing: border-box;
+  flex-direction: column;
+  display: flex;
+}
+
+#menutitle {
+  top: 0;
+  height: 15%;
+  /* Background */
+  background-image: url(../assets/images/header.png);
+  background-repeat: no-repeat;
+  background-size: 100% 100%;
+  background-position: center;
+
+  /* actual styling */
+  color: white;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+#menuTitleContainer {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  font-size: 2vw;
+  font-family: Crock;
+  justify-content: center;
+  align-items: center;
+  padding: 5%;
+}
+
+#buttonscontainer {
+  width: 100%;
+  height: auto;
+  max-height: 50%; /* Ensures a maximum height */
+  overflow-y: auto; /* Scroll vertically when there's an overflow */
+  padding: 10px 0; /* Adds some padding to the top and bottom */
+
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+  background-color: rgba(58, 58, 58, 0.774);
+}
+
+/* Style the scrollbar thumb (the moving part) */
+#buttonscontainer::-webkit-scrollbar-thumb {
+  background-color: rgba(58, 58, 58, 0.774); /* Slightly lighter for contrast */
+}
+
+/* Adjust scrollbar width */
+#buttonscontainer::-webkit-scrollbar {
+  width: 12px;
+}
+
+/* Style for hovering over the scrollbar thumb */
+#buttonscontainer::-webkit-scrollbar-thumb:hover {
+  background-color: rgba(78, 78, 78, 0.774); /* A bit lighter on hover */
+}
+
+#searchBar {
+  width: 100%;
+
+  height: 5%;
+  padding: 10px;
+  box-sizing: border-box; /* Ensures padding doesn't increase width */
+  font-size: 0.5vw;
+  margin-bottom: 10px;
+  display: flex;
+
+  background-color: rgba(58, 58, 58, 0.774);
+  border: none;
+  outline: none;
+  color: white;
+  font-family: HapnaSlabSerif;
+}
+
+#searchBar:hover {
+  background-color: rgba(78, 78, 78, 0.774);
+}
+
+.button {
+  width: 90%;
+  max-width: 90%;
+  height: 3vw;
+  max-height: 3vw;
+  background-color: rgba(58, 58, 58, 0.774);
+  color: white;
+  font-family: HapnaSlabSerif;
+  border: none;
+  padding: 15px;
+  margin: 5px 0;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  box-sizing: border-box;
+}
+
+.button-img {
+  width: 20%;
+  max-width: 15%;
+  height: 70%;
+  margin-right: 10px;
+  padding-right: 10px;
+  background-size: contain;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+.button-text {
+  font-size: 1vw;
+  box-sizing: border-box; /* Include padding in width and height calculations */
+  padding: 5%; /* Add some spacing between image and text */
+  padding-left: 0; /* Remove padding on the left */
+  flex-grow: 1;
+  text-align: left;
+  overflow: hidden;
+  text-overflow: clip;
+  white-space: nowrap; /* Keep text on one line */
+}
+
+.button:hover {
+  background-color: rgba(78, 78, 78, 0.774);
+}
+
+.tooltipDiv {
+  position: fixed;
+  display: none;
+  background-image: url(../assets/images/tooltip.png);
+  background-repeat: no-repeat;
+  background-size: 100% 100%;
+  white-space: pre-wrap;
+
+  width: fit-content;
+  height: fit-content;
+  font-family: HapnaSlabSerif;
+  padding: 0.4vw;
+  color: white;
+  font-size: 0.5vw;
+  z-index: 1000;
+}
+
+.tooltipDiv.appear {
+  animation: appear 0.1s ease-in-out forwards;
+}
+
+.tooltipDiv.disappear {
+  animation: disappear 0.1s ease-in-out forwards;
+}
+
+.loadingCircle {
+  position: fixed;
+  display: block;
+  width: 30px; /* Adjust as needed */
+  height: 30px;
+  border-radius: 50%;
+  background: conic-gradient(from 0deg, grey, transparent);
+  animation: fillCircle 2s linear infinite;
+  z-index: 1001;
+}
+
+@keyframes fillCircle {
+  0% {
+    background: conic-gradient(from 0deg, transparent, transparent);
+  }
+  100% {
+    background: conic-gradient(from 0deg, grey, grey);
+  }
+}
+
+/* Updated tooltip animations */
+@keyframes appear {
+  0% {
+    clip-path: polygon(0 0, 0 0, 0 100%, 0 100%);
+  }
+  100% {
+    clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%);
+  }
+}
+
+@keyframes disappear {
+  0% {
+    clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%);
+  }
+  100% {
+    clip-path: polygon(100% 100%, 100% 100%, 100% 100%, 100% 100%);
+  }
+}
+
+#dynamicForm {
+  width: 90%;
+  height: auto;
+}
+
+#formDiv {
+  width: 100%;
+  height: auto;
+  display: flex;
+  margin-bottom: 10px;
+  flex-direction: column;
+  justify-content: left;
+  align-items: left;
+}
+
+.labelForm {
+  color: white;
+  font-family: HapnaSlabSerif;
+  font-size: 1vw;
+  padding-bottom: 3px;
+}
+
+.imageForm {
+  width: min-content;
+  max-width: 100%;
+  height: auto;
+  margin-bottom: 10px;
+
+  /* Greyscale the image */
+  box-shadow: 0 0 12px rgba(0, 0, 0, 0.5);
+  filter: grayscale(100%) contrast(1.2);
+}
+
+.shortInput {
+  padding: 5px;
+  font-size: 0.7vw;
+  font-family: HapnaSlabSerif;
+  color: white;
+  background-color: rgba(55, 55, 55, 1);
+  border: none;
+  outline: none;
+}
+
+.shortInput:hover {
+  background-color: rgba(78, 78, 78, 0.774);
+}
+
+/* Up and down arrow */
+.shortInput::-webkit-inner-spin-button,
+.shortInput::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+.options {
+  width: 100%;
+  font-size: 0.7vw;
+  padding: 5px;
+  font-family: HapnaSlabSerif;
+  color: white;
+  background-color: rgba(55, 55, 55, 1);
+  border: none;
+  outline: none;
+}
+
+.options:hover {
+  background-color: rgba(78, 78, 78, 0.774);
+}
+
+.results-searchbar {
+  width: 100%;
+  font-size: 0.5vw;
+  padding: 5px;
+  font-family: HapnaSlabSerif;
+  color: white;
+  background-color: rgba(55, 55, 55, 1);
+  border: none;
+  outline: none;
+}
+
+.results-searchbar:hover {
+  background-color: rgba(78, 78, 78, 0.774);
+}
+
+.results {
+  background-color: rgba(55, 55, 55, 1);
+  max-height: 20%;
+  overflow-y: auto;
+}
+
+.result-option {
+  background-color: rgba(78, 78, 78, 0.774);
+  padding: 5px;
+  margin: 5px;
+  font-size: 0.7vw;
+  font-family: HapnaSlabSerif;
+  color: white;
+}
+
+.result-option:hover {
+  background-color: rgba(90, 90, 90, 1);
+}
+
+.promptButtonContainer {
+  display: flex;
+  flex-direction: column;
+}
+
+.titlediv {
+  width: 100%;
+  display: block;
+  text-align: left;
+}
+
+.buttonPrompts {
+  width: 100%;
+  display: flex;
+}
+
+.promptButton {
+  width: 50%;
+  height: 40px;
+  font-size: 0.7vw;
+  background-color: rgba(58, 58, 58, 0.774);
+  color: white;
+  font-family: HapnaSlabSerif;
+  border: none;
+  padding: 5px;
+  margin: 5px 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.promptButton:hover {
+  background-color: rgba(90, 90, 90, 0.774);
+}
+
+.promptButtonSelected {
+  background-color: rgba(78, 78, 78, 0.774);
+}
+
+.textarea {
+  padding: 5px;
+  font-size: 0.7vw;
+  font-family: HapnaSlabSerif;
+  color: white;
+  background-color: rgba(55, 55, 55, 1);
+  border: none;
+  outline: none;
+  height: 200px;
+  resize: vertical;
+}
+
+.textarea:hover {
+  background-color: rgba(78, 78, 78, 0.774);
+}
+
+.textarea::-webkit-scrollbar-thumb {
+  background-color: rgba(58, 58, 58, 0.774); /* Slightly lighter for contrast */
+}
+
+.textarea::-webkit-scrollbar {
+  width: 12px;
+}
+
+.textarea::-webkit-scrollbar-thumb:hover {
+  background-color: rgba(78, 78, 78, 0.774); /* A bit lighter on hover */
+}
+
+.multipleEntryContainer {
+  padding-left: 5px; /* Add padding to the left */
+  display: flex;
+  flex-direction: column; /* Align like a column */
+  align-items: flex-start; /* Align items to the start */
+}
+
+.checkboxDiv {
+  display: flex;
+  flex-direction: row;
+  align-items: left;
+  align-items: center;
+  padding: 5px;
+  width: 100%;
+  height: 40px;
+}
+
+.checkboxDiv input[type="checkbox"] {
+  font-size: 0.7vw;
+  width: 20px;
+  height: 20px;
+  margin-right: 10px;
+  background-color: rgba(55, 55, 55, 0.5);
+}
+
+.hiddenCheckbox {
+  display: none; /* Hide the native checkbox */
+}
+
+.imageDiv {
+  width: 32px;
+  height: 32px;
+  position: relative;
+}
+
+.imageDiv img {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.checkboxDiv:hover {
+  background-color: rgba(78, 78, 78, 0.774);
+}
+
+.checkboxDiv label {
+  color: white;
+  font-family: HapnaSlabSerif;
+  font-size: 1vw;
+  padding-left: 5px;
+}
+
+.sliderInput {
+  -webkit-appearance: none;
+  height: 25px;
+  background: rgba(55, 55, 55, 1);
+  outline: none;
+  opacity: 0.7;
+  -webkit-transition: 0.2s;
+  transition: opacity 0.2s;
+}
+
+.sliderInput::-webkit-slider-thumb {
+  -webkit-appearance: none; /* Override default appearance */
+  appearance: none;
+  width: 20px; /* Set a specific width */
+  height: 20px; /* Set a specific height */
+  background: rgba(90, 90, 90, 0.9); /* Color */
+}
+
+.sliderInput:hover {
+  opacity: 1; /* Fully shown on mouse-over */
+}
+
+.sliderInput::-moz-range-progress {
+  background-color: #000000; /* Color */
+}
+
+.submitButton {
+  width: 100%;
+  height: 5%;
+  font-size: 1vw;
+  background-color: rgba(58, 58, 58, 0.774);
+  color: white;
+  font-family: HapnaSlabSerif;
+  border: none;
+  padding: 0.8vw;
+  margin: 5px 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.submitButton:hover {
+  background-color: rgba(78, 78, 78, 0.774);
+}
+
+.information-div {
+  display: flex;
+  color: white;
+
+  font-size: 0.8vw;
+  font-family: HapnaSlabSerif;
+
+  max-height: auto; /* Ensures a maximum height */
+  overflow-y: auto; /* Scroll vertically when there's an overflow */
+  white-space: pre-line; /* Ensures line breaks are respected */
+  text-align: center;
+
+  display: flex;
+  flex-direction: column;
+}
+
+.information-div h1 {
+  font-family: Crock;
+  font-size: 1vw;
+
+  margin-top: 0;
+  margin-bottom: 0;
+}
+
+/* Style the scrollbar thumb (the moving part) */
+.information-div::-webkit-scrollbar-thumb {
+  background-color: rgba(58, 58, 58, 0.774); /* Slightly lighter for contrast */
+}
+
+/* Adjust scrollbar width */
+.information-div::-webkit-scrollbar {
+  width: 12px;
+}
+
+/* Style for hovering over the scrollbar thumb */
+.information-div::-webkit-scrollbar-thumb:hover {
+  background-color: rgba(78, 78, 78, 0.774); /* A bit lighter on hover */
+}
+
+.crafting-icons {
+  display: flex;
+  justify-content: center; /* Center icons horizontally */
+  gap: 10px; /* Space between icons */
+}
+
+.requirement-div {
+  position: relative;
+  width: 25%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.requirement-div > div {
+  width: 100px;
+  height: 100px;
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+}
+
+.requirement-div > span {
+  color: white;
+  font-family: "Crock", sans-serif;
+  font-size: 0.5vw;
+  margin-left: 5px;
+}
+
+#closeButton {
+  /* Positioning */
+  width: 100%;
+  height: 8%;
+  border: none;
+  display: block;
+
+  /* Styling */
+  font-size: 1vw;
+  background-color: rgba(58, 58, 58, 0.774);
+  color: white;
+  font-family: HapnaSlabSerif;
+}
+
+#closebutton:hover {
+  background-color: rgba(78, 78, 78, 0.774);
+}
+
+#backButton {
+  /* Positioning */
+  width: 100%;
+  height: 8%;
+  margin-top: auto;
+  margin-bottom: 10px;
+  display: none;
+  text-align: center;
+  justify-content: center;
+  align-items: center;
+  border: none;
+
+  /* Styling */
+  font-size: 1vw;
+  background-color: rgba(58, 58, 58, 0.774);
+  color: white;
+  font-family: HapnaSlabSerif;
+}
+
+#backButton:hover {
+  background-color: rgba(78, 78, 78, 0.774);
+}
+
+.divider {
+  width: 100%;
+  height: 4px;
+  display: flex;
+
+  margin-top: 5px;
+  margin-bottom: 5px;
+
+  /* Background */
+  background-image: url(../assets/images/divider.png);
+  background-repeat: no-repeat;
+  background-size: 100% 100%;
+  background-position: center;
+}
+
+/* Animations */
+@keyframes slideInFromLeft {
+  from {
+    transform: translateX(-100%);
+  }
+  to {
+    transform: translateX(0);
+  }
+}
+
+@keyframes slideInFromRight {
+  from {
+    transform: translateX(100%);
+  }
+  to {
+    transform: translateX(0);
+  }
+}
+
+@keyframes slideOutToLeft {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-120%);
+  }
+}
+
+@keyframes slideOutToRight {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(120%);
+  }
+}
+
+@keyframes slideInFromBottom {
+  from {
+    transform: translateY(100%) translateX(-50%);
+  }
+  to {
+    transform: translateY(0) translateX(-50%);
+  }
+}
+
+@keyframes slideOutToBottom {
+  from {
+    transform: translateY(0) translateX(-50%);
+  }
+  to {
+    transform: translateY(120%) translateX(-50%);
+  }
+}
+
+.menu-animation-enter {
+  animation: 1s forwards;
+}
+
+.menu-animation-exit {
+  animation: 1s forwards;
+}
