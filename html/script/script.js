@@ -104,7 +104,7 @@ window.onload = function () {
       imageUrl = requirement.image; // Use the provided URL directly
     } else {
       // If the image URL does not start with "http", reroute it using the NUI path
-      imageUrl = `nui://wrp_inventory/web/images/${requirement.image}`;
+      imageUrl = `nui://inventory_resource/web/images/${requirement.image}`;
     }
 
     reqImg.style.backgroundImage = `url(${imageUrl})`;
@@ -144,7 +144,7 @@ window.onload = function () {
       });
       clearDivBelow();
       $.post(
-        "http://wrp_menu/backButtonClick",
+        "http://c_menu/backButtonClick",
         JSON.stringify({ id: backbuttoncurrentid })
       );
     }
@@ -168,7 +168,7 @@ window.onload = function () {
   contentContainer.appendChild(closeButton);
 
   closeButton.onclick = function () {
-    $.post("http://wrp_menu/close", JSON.stringify({}));
+    $.post("http://c_menu/close", JSON.stringify({}));
   };
 
   closeButton.onmouseover = function () {
@@ -739,7 +739,7 @@ window.onload = function () {
             imageUrl = field.image; // Use the provided URL directly
           } else {
             // If the image URL does not start with "http", reroute it using the NUI path
-            imageUrl = `nui://wrp_inventory/web/images/${field.image}`;
+            imageUrl = `nui://inventory_resource/web/images/${field.image}`;
           }
 
           inputElement.src = imageUrl;
@@ -934,7 +934,7 @@ window.onload = function () {
         imageUrl = item.image; // Use the provided URL directly
       } else {
         // If the image URL does not start with "http", reroute it using the NUI path
-        imageUrl = `nui://wrp_inventory/web/images/${item.image}`;
+        imageUrl = `nui://inventory_resource/web/images/${item.image}`;
       }
 
       imgDiv.style.backgroundImage = `url(${imageUrl})`;
@@ -1082,7 +1082,7 @@ window.onload = function () {
   }
 
   function sendToLua(data) {
-    $.post("http://wrp_menu/" + data.type, JSON.stringify(data));
+    $.post("http://c_menu/" + data.type, JSON.stringify(data));
   }
 
   /* Actual LUA <-> JS */
