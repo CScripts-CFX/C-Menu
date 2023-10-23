@@ -129,9 +129,10 @@ function FormatData(data)
             id = math.random(1, 1000000000), -- unique ID
         }
 
-        if item.requirements then
+        -- Soon...
+        --[[ if item.requirements then
             for k, v in ipairs(item.requirements) do
-                for item, data in pairs(exports.wrp_inventory:Items()) do
+                for item, data in pairs(exports.c_inventory:Items()) do
                     if v.item == data.name then
                         v.image = v.item .. ".png"
                         v.item = nil
@@ -141,7 +142,7 @@ function FormatData(data)
             end
 
             newItem.requirements = item.requirements
-        end
+        end ]]
 
         if item.information then
             newItem.information = item.information

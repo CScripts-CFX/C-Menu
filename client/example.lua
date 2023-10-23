@@ -199,5 +199,5 @@ RegisterCommand("testmenu", function()
             }
         },
     }
-    exports.cmenu:OpenMenu(menuData)
+    exports.c_menu:OpenMenu(menuData)
 end, false)
